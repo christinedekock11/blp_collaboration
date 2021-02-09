@@ -1,1 +1,1 @@
-# blp_collaboration
+# Collaboration patterns on biographies of living people
