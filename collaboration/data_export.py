@@ -2,6 +2,7 @@ from pyspark.sql.functions import udf, col, explode, regexp_replace
 from pyspark.sql.types import ArrayType, StringType
 import re
 from time import time
+from config import TEMPLATES
 
 @udf(returnType=ArrayType(StringType()))
 def getTemplatesRegex(wikitext):
@@ -18,12 +19,11 @@ def getTemplatesRegex(wikitext):
 
 
 @udf(returnType=ArrayType(StringType()))
-def getTemplatesRegexRelaibility(wikitext):
+def getTemplatesRegexRelaibility(wikitext, templates=TEMPLATES):
     """
     Same function than getTemplatesRegex, but filtered by list of templates
     TODO: Check how to call another function (getTemplatesRegex) from here.
     """
-    global templates
     try:
         all_templates = list(
             set([m.split('|')[0].strip() for m in re.findall('(?<=\{\{)(.*?)(?=\}\})', wikitext, flags=re.DOTALL)]))

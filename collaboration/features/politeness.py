@@ -20,7 +20,6 @@ def reconstruct_corpus(dataset):
 
     return corpus
 
-
 def format_politeness_features(corpus):
     convs = list(corpus.iter_conversations())
     convs_feat_dict = {}
