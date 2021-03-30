@@ -20,16 +20,13 @@ def reconstruct_corpus(dataset):
 
     return corpus
 
-
 def format_politeness_features(corpus):
-    convs = list(corpus.iter_conversations())
     convs_feat_dict = {}
 
-    for conv in tqdm(convs):
-        utts = list(conv.iter_utterances())
+    for conv in corpus.iter_conversations():
         utts_feats = []
 
-        for utt in utts:
+        for utt in conv.iter_utterances():
             feat_dict = {}
             for feature, markers in utt.meta['politeness_markers'].items():
                 feat_dict[feature] = len(markers)
