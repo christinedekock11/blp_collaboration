@@ -2,7 +2,8 @@ from pyspark.sql.functions import udf, col, explode, regexp_replace
 from pyspark.sql.types import ArrayType, StringType
 import re
 from time import time
-from config import TEMPLATES
+
+TEMPLATES=['weasel','peacock','autobiography','advert','fanpov']
 
 @udf(returnType=ArrayType(StringType()))
 def getTemplatesRegex(wikitext):
