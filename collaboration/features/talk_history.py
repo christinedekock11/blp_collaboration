@@ -1,4 +1,6 @@
 import re
+from parser import ParserError
+
 from bs4 import BeautifulSoup
 from dateutil import parser as dateparser
 import string
@@ -74,7 +76,10 @@ class ConvParser(object):
 
     def format_date(self, date=''):
         match = self.date_regex.search(date) if date else None
-        date = dateparser.parse(match.group(1)) if match else None
+        date = match.group(1) if match else None
+        #        date = dateparser.parse(match.group(1))
+        #    except ParserError:
+        #        date = None
         return date
 
 class FeatureExtractor(object):

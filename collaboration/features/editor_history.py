@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from math import log2
+
+from ..utils import entropy
 
 from pyspark.sql import functions as f
 from pyspark.sql.functions import udf, col
@@ -14,10 +15,6 @@ def talk_article_ratio(page_namespace_list):
 
 
 udf_page_talk_ratio = udf(talk_article_ratio, FloatType())
-
-
-def entropy(p):
-    return -sum([p[i] * log2(p[i]) for i in range(len(p))])
 
 
 def contribution_fracs(page_ids):

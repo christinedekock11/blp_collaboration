@@ -1,12 +1,15 @@
 import pandas as pd
 import json
 import numpy as np
+from math import log2
 
 def get_edits_pre_tag(data):
     ix = data['has_template'].idxmax()
 
     return data.loc[:ix]
 
+def entropy(p):
+    return -sum([p[i] * log2(p[i]) for i in range(len(p))])
 
 def split_by_pagetitle():
     # can change logic if ordered!
@@ -32,3 +35,10 @@ def read_revisions(filename, rename=False):
 def np_encoder(object):
     if isinstance(object, np.generic):
         return object.item()
+
+def load_all(filename):
+    data = []
+    for template in ['advert','peacock','autobiography','weasel','fanpov']:
+        with open(filename.format(template),'rb') as f:
+            data.extend(json.load(f))
+    return data

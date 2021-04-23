@@ -83,7 +83,7 @@ def get_user_article_features(revisions):
     means = user_article[['edit_size', 'next_edit_size', 'time_to_respond', 'time_responded_to']].mean()
     counts = user_article.size().reset_index().rename(columns={0: 'num_edits'}).set_index('event_user_id')
     counts['frac_page_edits'] = counts.num_edits / len(revisions)
-    reverts = user_article[['revision_is_identity_reverted', 'revision_is_identity_revert']].count()
+    reverts = user_article[['revision_is_identity_reverted', 'revision_is_identity_revert']].sum()
     user_article = pd.concat([means, counts, reverts], axis=1).reset_index().to_dict('records')
     return user_article
 
